@@ -14,9 +14,11 @@ namespace SQLiteClient
         [STAThread]
         static void Main()
         {
+            DbMain.ConnectToDb();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new EssencesForm());
+            DbMain.EndConnection();
         }
     }
 }
