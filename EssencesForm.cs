@@ -24,22 +24,23 @@ namespace SQLiteClient
         {
             lsbEssences.Items.Clear();
             lsEssences = DbMain.GetEssences();
-            for (int i = 1; i < lsEssences.Count; i++)
+            for (int i = 0; i < lsEssences.Count; i++)
             {
-                lsbEssences.Items.Add(lsEssences[i]);
+                if (lsEssences[i] != "sqlite_sequence")
+                    lsbEssences.Items.Add(lsEssences[i]);
             }
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            using (AddForm frAdd = new AddForm())
-            {
-                if (frAdd.ShowDialog() == DialogResult.OK)
-                {
-                    DbMain.AddEssence(frAdd.EssenceName, frAdd.EssenceFields);
-                    EssencesForm_Load(sender, e);
-                }
-            }
+            //using (AddForm frAdd = new AddForm())
+            //{
+            //    if (frAdd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        DbMain.AddEssence(frAdd.EssenceName, frAdd.EssenceFields);
+            //        EssencesForm_Load(sender, e);
+            //    }
+            //}
             
         }
 
@@ -52,37 +53,44 @@ namespace SQLiteClient
         {
             if (lsbEssences.SelectedIndex >= 0)
             {
+                using (EditForm frEdit = new EditForm())
+                {
+                    frEdit.Text = lsbEssences.SelectedItem.ToString();
+                    if (frEdit.ShowDialog() == DialogResult.OK)
+                    {
 
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Выберите изменяемую сущность", 
-                                "Ошибка", 
-                                MessageBoxButtons.OK, 
+                MessageBox.Show("Выберите изменяемую сущность",
+                                "Ошибка",
+                                MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
             }
         }
 
         private void BntRemove_Click(object sender, EventArgs e)
         {
-            if (lsbEssences.SelectedIndex >= 0)
-            {
-                if (MessageBox.Show("Вы уверены, что хотите удалить выбранную сущность?", 
-                                    "Удаление сущности", 
-                                    MessageBoxButtons.YesNo, 
-                                    MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    DbMain.RemoveTable(lsbEssences.SelectedItem.ToString());
-                    EssencesForm_Load(sender, e);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Выберите изменяемую сущность", 
-                                "Ошибка", 
-                                MessageBoxButtons.OK, 
-                                MessageBoxIcon.Warning);
-            }
+            //if (lsbEssences.SelectedIndex >= 0)
+            //{
+            //    if (MessageBox.Show("Вы уверены, что хотите удалить выбранную сущность?", 
+            //                        "Удаление сущности", 
+            //                        MessageBoxButtons.YesNo, 
+            //                        MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        DbMain.RemoveTable(lsbEssences.SelectedItem.ToString());
+            //        EssencesForm_Load(sender, e);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Выберите изменяемую сущность", 
+            //                    "Ошибка", 
+            //                    MessageBoxButtons.OK, 
+            //                    MessageBoxIcon.Warning);
+            //}
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SQLiteClient
 {
     public static class DbMain
     {
-        private const string strConnection = "Data Source = ComputersDB.db; Version=3";
+        private const string strConnection = "Data Source = ComputerShopDB.db; Version=3";
         private static SQLiteConnection dbConnection = new SQLiteConnection(strConnection);
         private static SQLiteCommand sqlCommand;
         private static SQLiteDataReader sqlDataReader;
@@ -114,9 +114,9 @@ namespace SQLiteClient
             sqlCommand.ExecuteReader();
         }
 
-        public static List<string> GetColNames(string tableName)
+        public static void GetColNames(string tableName, List<Field> fields)
         {
-            lsEssences.Clear();
+            //lsEssences.Clear();
 
             sqlCommand = dbConnection.CreateCommand();
             sqlCommand.CommandText = "pragma table_info(" + tableName+ ")";
@@ -126,17 +126,100 @@ namespace SQLiteClient
             {
                 while (sqlDataReader.Read())
                 {
-                    lsEssences.Add((string)sqlDataReader["name"]);
+                    fields.Add(new Field
+                    {
+                        FieldName = sqlDataReader["name"].ToString(),
+                        FieldType = sqlDataReader["type"].ToString(),
+                        NotNull = Convert.ToBoolean(sqlDataReader["notnull"]),
+                        PrimaryKey = Convert.ToBoolean(sqlDataReader["pk"])
+                    });
+                    
                 }
             }
 
-            return lsEssences;
+            //return lsEssences;
         }
 
         public static void RemoveTable(string tableName)
         {
             sqlCommand = dbConnection.CreateCommand();
             sqlCommand.CommandText = "DROP TABLE " + tableName + ";";
+            sqlDataReader = sqlCommand.ExecuteReader();
+        }
+
+        public static List<string>GetDataFromTable(string tableName)
+        {
+            lsEssences.Clear();
+
+            sqlCommand = dbConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT * FROM " + tableName;
+            sqlDataReader = sqlCommand.ExecuteReader();
+
+            //for (int i = 0; i < sqlDataReader.FieldCount; i++)
+            while (sqlDataReader.Read())
+            {
+                for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                    lsEssences.Add(sqlDataReader[i].ToString());
+            }
+
+            return lsEssences;
+            //while (sqlDataReader.Read())
+            //{
+            //    lsEssences.Add(sqlDataReader.GetString());
+            //}
+        }
+
+        public static void InsertData(string tableName, List<Field> lsNames, List<string> lsData)
+        {
+            sqlCommand = dbConnection.CreateCommand();
+            sqlCommand.CommandText = "INSERT INTO " + tableName + " (";
+
+            for (int i = 0; i < lsNames.Count; i++)
+            {
+                sqlCommand.CommandText += lsNames[i].FieldName;
+                if (i < lsNames.Count - 1)
+                    sqlCommand.CommandText += ", ";
+                else
+                    sqlCommand.CommandText += ") VALUES (";
+            }
+
+            for (int i = 0; i < lsData.Count; i++)
+            {
+                if (lsNames[i].FieldType.Contains("VARCHAR"))
+                    lsData[i] = "'" + lsData[i] + "'";
+                sqlCommand.CommandText += lsData[i];
+                if (i < lsData.Count - 1)
+                    sqlCommand.CommandText += ", ";
+                else
+                    sqlCommand.CommandText += ");";
+            }
+
+            sqlDataReader = sqlCommand.ExecuteReader();
+        }
+
+        public static void RemoveData(string tableName, Field field, string strData)
+        {
+            sqlCommand = dbConnection.CreateCommand();
+            sqlCommand.CommandText = "DELETE FROM " + tableName + " WHERE " + field.FieldName + " = ";
+            if (field.FieldType.Contains("VARCHAR"))
+                strData = "'" + strData + "'";
+            sqlCommand.CommandText += strData;
+
+            sqlDataReader = sqlCommand.ExecuteReader();
+        }
+
+        public static void EditData(Field field, string tableName, string strData, int Id)
+        {
+            sqlCommand = dbConnection.CreateCommand();
+            sqlCommand.CommandText = "UPDATE " + tableName + " SET ";
+            sqlCommand.CommandText += field.FieldName + " = ";
+
+            if (field.FieldType.Contains("VARCHAR"))
+                strData = "'" + strData + "'";
+
+            sqlCommand.CommandText += strData;
+            sqlCommand.CommandText += " WHERE id = " + Id + ";";
+
             sqlDataReader = sqlCommand.ExecuteReader();
         }
     }

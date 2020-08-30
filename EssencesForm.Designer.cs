@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.lsbEssences = new System.Windows.Forms.ListBox();
-            this.BtnAdd = new System.Windows.Forms.Button();
-            this.BntRemove = new System.Windows.Forms.Button();
             this.BtnEdit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -43,31 +41,11 @@
             this.lsbEssences.TabIndex = 0;
             this.lsbEssences.SelectedIndexChanged += new System.EventHandler(this.lsbEssences_SelectedIndexChanged);
             // 
-            // BtnAdd
-            // 
-            this.BtnAdd.Location = new System.Drawing.Point(12, 412);
-            this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(92, 39);
-            this.BtnAdd.TabIndex = 1;
-            this.BtnAdd.Text = "Добавить сущность";
-            this.BtnAdd.UseVisualStyleBackColor = true;
-            this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
-            // 
-            // BntRemove
-            // 
-            this.BntRemove.Location = new System.Drawing.Point(208, 412);
-            this.BntRemove.Name = "BntRemove";
-            this.BntRemove.Size = new System.Drawing.Size(92, 39);
-            this.BntRemove.TabIndex = 2;
-            this.BntRemove.Text = "Удалить сущность";
-            this.BntRemove.UseVisualStyleBackColor = true;
-            this.BntRemove.Click += new System.EventHandler(this.BntRemove_Click);
-            // 
             // BtnEdit
             // 
-            this.BtnEdit.Location = new System.Drawing.Point(110, 412);
+            this.BtnEdit.Location = new System.Drawing.Point(12, 412);
             this.BtnEdit.Name = "BtnEdit";
-            this.BtnEdit.Size = new System.Drawing.Size(92, 39);
+            this.BtnEdit.Size = new System.Drawing.Size(287, 39);
             this.BtnEdit.TabIndex = 3;
             this.BtnEdit.Text = "Редактировать поля";
             this.BtnEdit.UseVisualStyleBackColor = true;
@@ -79,8 +57,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 466);
             this.Controls.Add(this.BtnEdit);
-            this.Controls.Add(this.BntRemove);
-            this.Controls.Add(this.BtnAdd);
             this.Controls.Add(this.lsbEssences);
             this.Name = "EssencesForm";
             this.Text = "EssencesForm";
@@ -92,8 +68,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox lsbEssences;
-        private System.Windows.Forms.Button BtnAdd;
-        private System.Windows.Forms.Button BntRemove;
         private System.Windows.Forms.Button BtnEdit;
     }
 }
