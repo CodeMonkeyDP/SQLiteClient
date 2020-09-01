@@ -34,15 +34,19 @@
             // 
             // lsbEssences
             // 
+            this.lsbEssences.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbEssences.FormattingEnabled = true;
             this.lsbEssences.Location = new System.Drawing.Point(12, 12);
             this.lsbEssences.Name = "lsbEssences";
             this.lsbEssences.Size = new System.Drawing.Size(288, 394);
             this.lsbEssences.TabIndex = 0;
-            this.lsbEssences.SelectedIndexChanged += new System.EventHandler(this.lsbEssences_SelectedIndexChanged);
             // 
             // BtnEdit
             // 
+            this.BtnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnEdit.Location = new System.Drawing.Point(12, 412);
             this.BtnEdit.Name = "BtnEdit";
             this.BtnEdit.Size = new System.Drawing.Size(287, 39);

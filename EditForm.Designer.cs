@@ -82,7 +82,7 @@
             this.MinimizeBox = false;
             this.Name = "EditForm";
             this.Text = "EditForm";
-            this.Load += new System.EventHandler(this.EditForm_Load);
+            this.Load += new System.EventHandler(this.UpdateTable);
             ((System.ComponentModel.ISupportInitialize)(this.tblFields)).EndInit();
             this.ResumeLayout(false);
 

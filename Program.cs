@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using DbLib;
 
 namespace SQLiteClient
 {
@@ -14,10 +12,13 @@ namespace SQLiteClient
         [STAThread]
         static void Main()
         {
+            // Подключение к БД
             DbMain.ConnectToDb();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new EssencesForm());
+
+            // Закрытие подключения к БД
             DbMain.EndConnection();
         }
     }
